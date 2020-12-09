@@ -23,13 +23,16 @@ public:
 			node->value = value;
 			node->next = this->head;
 			this->head = node;
+			this->count++;
 		}
 		return node;
 	}
 
 	bool insert(int value, size_t n){
+		if(!n) return this->insert(value);
+
 		Node * node_n = head;
-		for (int i = 0; i < n; ++i){
+		for (int i = 0; i < n - 1; ++i){
 			node_n = node_n->next;
 		}
 
@@ -38,6 +41,7 @@ public:
 			node->value = value;
 			node->next = node_n->next;
 			node_n->next = node;
+			this->count++;
 		}
 		return node_n;
 	}
@@ -45,7 +49,7 @@ public:
 
 	bool replace(int value, size_t n){
 		Node * node_n = head;
-		for (int i = 0; i < n; ++i){
+		for (size_t i = 0; i < n; ++i){
 			node_n = node_n->next;
 		}
 		if (node_n){
@@ -54,14 +58,28 @@ public:
 		return node_n;
 	}
 
-	bool read(){
-
+	bool read(int &value){
+		bool ret_val = false;
+		Node * node = head;
+		if(node){
+			value = node->value;
+			head = node->next;
+			ret_val = true;
+			delete node;
+			this->count--;
+		}
+		return ret_val;
 	}
 
 	bool remove(size_t n){
+		if(!n) {
+			int value;
+			return this->read(value);
+		}
+
 		bool ret_val = false;
 		Node * node_left = head;
-		for (int i = 0; i < n; ++i){
+		for (int i = 0; i < n - 1; ++i){
 			node_left = node_left->next;
 		}
 
@@ -71,6 +89,7 @@ public:
 			if (node_n){
 				ret_val = true;
 				delete node_n;
+				this->count--;
 			}
 		}
 		return ret_val;
@@ -79,17 +98,22 @@ public:
 	bool print(){
 		Node * node = head;
 		while(node){
-			cout << node->value << endl;
+			cout << node->value << " ";
 			node = node->next;
 		} 
+		cout << endl;
 	}
 
 	bool is_empty(){
 
 	}
 
+	size_t size(){
+		return count;
+	}
+
 private:
-	size_t size;
+	size_t count;
 	Node * head, tail;
 };
 
@@ -98,14 +122,20 @@ int main(int argc, char const *argv[]){
 	for (int i = 0; i < 10; ++i){
 		list->insert(i);
 	}
-	list->insert(99, 5);
 
+	cout << "=======================" << endl;
+	cout << "Size : " << list->size() << endl;
 	list->print();
 
-	cout << "=====================" << endl;
-
-	list->remove(5);
+	cout << "=======================" << endl;
+	list->insert(99, 0);
+	cout << "Size : " << list->size() << endl;
 	list->print();
-	// cout << "test" << endl;
+
+	cout << "=======================" << endl;
+	list->remove(0);
+	cout << "Size : " << list->size() << endl;
+	list->print();
+
 	return 0;
 }
