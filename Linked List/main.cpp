@@ -6,8 +6,8 @@ Insert
 ======
 1. Create new node
 2. Put value in new node
-3. Be the "next" of head
-4. the new node becomes head
+3. Be the "next" of this->head
+4. the new node becomes this->head
 */
 class Node{
 public:
@@ -30,8 +30,9 @@ public:
 
 	bool insert(int value, size_t n){
 		if(!n) return this->insert(value);
+		if(n > this->size()) return false;
 
-		Node * node_n = head;
+		Node * node_n = this->head;
 		for (int i = 0; i < n - 1; ++i){
 			node_n = node_n->next;
 		}
@@ -48,7 +49,8 @@ public:
 
 
 	bool replace(int value, size_t n){
-		Node * node_n = head;
+		if(n > this->size() - 1) return false;
+		Node * node_n = this->head;
 		for (size_t i = 0; i < n; ++i){
 			node_n = node_n->next;
 		}
@@ -60,10 +62,10 @@ public:
 
 	bool read(int &value){
 		bool ret_val = false;
-		Node * node = head;
+		Node * node = this->head;
 		if(node){
 			value = node->value;
-			head = node->next;
+			this->head = head->next;
 			ret_val = true;
 			delete node;
 			this->count--;
@@ -72,13 +74,14 @@ public:
 	}
 
 	bool remove(size_t n){
+		if(n > this->size() - 1) return false;
 		if(!n) {
 			int value;
 			return this->read(value);
 		}
 
 		bool ret_val = false;
-		Node * node_left = head;
+		Node * node_left = this->head;
 		for (int i = 0; i < n - 1; ++i){
 			node_left = node_left->next;
 		}
@@ -96,7 +99,7 @@ public:
 	}
 
 	bool print(){
-		Node * node = head;
+		Node * node = this->head;
 		while(node){
 			cout << node->value << " ";
 			node = node->next;
@@ -104,8 +107,17 @@ public:
 		cout << endl;
 	}
 
-	bool is_empty(){
-
+	bool destroy(){
+		bool ret_val = false;
+		for (int i = 0; i < this->size(); ++i){
+			int value;
+			this->read(value);
+			// cout << this->size() << endl;
+		}
+		ret_val = true;
+		this->count = 0;
+		this->head = NULL;
+		return ret_val;
 	}
 
 	size_t size(){
@@ -127,15 +139,33 @@ int main(int argc, char const *argv[]){
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
+	// cout << "=======================" << endl;
+	// list->insert(123, 5);
+	// cout << "Size : " << list->size() << endl;
+	// list->print();
+
+
+	// cout << "=======================" << endl;
+	// list->replace(456, 5);
+	// cout << "Size : " << list->size() << endl;
+	// list->print();
+
+	// cout << "=======================" << endl;
+	// list->remove(5);
+	// cout << "Size : " << list->size() << endl;
+	// list->print();
+
 	cout << "=======================" << endl;
-	list->insert(99, 0);
+	// list->destroy();
+	for (int i = 0; i < list->size(); ++i){
+		int value;
+		list->read(value);
+		cout << value << " ";
+	}
+	cout << endl;
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
-	cout << "=======================" << endl;
-	list->remove(0);
-	cout << "Size : " << list->size() << endl;
-	list->print();
-
+	delete list;
 	return 0;
 }
