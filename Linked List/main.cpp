@@ -109,10 +109,10 @@ public:
 
 	bool destroy(){
 		bool ret_val = false;
-		for (int i = 0; i < this->size(); ++i){
+		size_t size = this->size();
+		for (int i = 0; i < size; ++i){
 			int value;
 			this->read(value);
-			// cout << this->size() << endl;
 		}
 		ret_val = true;
 		this->count = 0;
@@ -157,7 +157,8 @@ int main(int argc, char const *argv[]){
 
 	cout << "=======================" << endl;
 	list->destroy();
-	// for (int i = 0; i < list->size(); ++i){
+	// size_t elements = list->size();
+	// for (int i = 0; i < elements; ++i){
 	// 	int value;
 	// 	list->read(value);
 	// 	cout << value << " ";
