@@ -139,30 +139,30 @@ int main(int argc, char const *argv[]){
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
-	// cout << "=======================" << endl;
-	// list->insert(123, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "=======================" << endl;
+	list->insert(123, 5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
-
-	// cout << "=======================" << endl;
-	// list->replace(456, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
-
-	// cout << "=======================" << endl;
-	// list->remove(5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
 
 	cout << "=======================" << endl;
-	// list->destroy();
-	for (int i = 0; i < list->size(); ++i){
-		int value;
-		list->read(value);
-		cout << value << " ";
-	}
-	cout << endl;
+	list->replace(456, 5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
+
+	cout << "=======================" << endl;
+	list->remove(5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
+
+	cout << "=======================" << endl;
+	list->destroy();
+	// for (int i = 0; i < list->size(); ++i){
+	// 	int value;
+	// 	list->read(value);
+	// 	cout << value << " ";
+	// }
+	// cout << endl;
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
