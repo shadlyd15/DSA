@@ -98,19 +98,19 @@ public:
 		return ret_val;
 	}
 
-	bool reverse(){
-		Node * current = this->head;
-		Node * next = NULL;
-		Node * prev = NULL;
+	// bool reverse(){
+	// 	Node * current = this->head;
+	// 	Node * next = NULL;
+	// 	Node * prev = NULL;
 
-		while(current){
-			next = current->next;
-			current->next = prev;
-			prev = current;
-			current = next;
-		}
-		head = prev;
-	}
+	// 	while(current){
+	// 		next = current->next;
+	// 		current->next = prev;
+	// 		prev = current;
+	// 		current = next;
+	// 	}
+	// 	head = prev;
+	// }
 
 	bool print(){
 		Node * node = this->head;
@@ -138,6 +138,20 @@ public:
 		return count;
 	}
 
+	bool reverse(){
+		Node * current = this->head;
+		Node * next = NULL;
+		Node * prev = NULL;
+
+		while(current){
+			next = current->next;
+			current->next = prev;
+			prev = current;
+			current = next;
+		}
+		this->head = prev;
+	}
+
 private:
 	size_t count;
 	Node * head, tail;
@@ -153,33 +167,35 @@ int main(int argc, char const *argv[]){
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
-	// cout << "=======================" << endl;
-	// list->insert(123, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "=======================" << endl;
+	list->insert(123, 5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
-
-	// cout << "=======================" << endl;
-	// list->replace(456, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
-
-	// cout << "=======================" << endl;
-	// list->remove(5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
 
 	cout << "=======================" << endl;
-	// list->destroy();
-	// size_t elements = list->size();
-	// for (int i = 0; i < elements; ++i){
-	// 	int value;
-	// 	list->read(value);
-	// 	cout << value << " ";
-	// }
-	// cout << endl;
+	list->replace(456, 5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
+	cout << "=======================" << endl;
+	list->remove(5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
+
+	cout << "=======================" << endl;
+	int value;
+	cout << "Value : " << list->read(value) <<endl;
+	cout << "Size : " << list->size() << endl;
+	list->print();
+
+	cout << "=======================" << endl;
 	list->reverse();
+	cout << "Size : " << list->size() << endl;
+	list->print();	
+
+	cout << "=======================" << endl;
+	list->destroy();
 	cout << "Size : " << list->size() << endl;
 	list->print();
 
