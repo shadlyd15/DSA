@@ -1,89 +1,74 @@
 #include <iostream>
 using namespace std;
 
+/*
+Insert
+======
+1. Create new node
+2. Put value in new node
+3. Be the "next" of this->head
+4. the new node becomes this->head
+*/
 class Node{
 public:
 	int value;
 	Node * next;
-	Node * prev;	
+	Node * prev;
 };
 
 class List{
 public:
-
-	bool insert_first(int value){
+	bool insert_head(int value){
 		Node * node = new Node;
+
 		if(node){
 			node->value = value;
 			node->next = this->head;
-			if(this->head){
-				this->head->prev = node;
-			}
-
 			this->head = node;
+			if(!this->tail){
+				this->tail = this->head;
+			} else{
+				this->tail->next = this->head;
+			}
 			this->count++;
 		}
 		return node;
 	}
 
-	bool insert_last(int value){
+	bool insert_tail(int value){
 		Node * node = new Node;
 		if(node){
-			node->next = NULL;
 			node->value = value;
+			node->next = this->tail;
+			this->tail = node;
 			if(!this->head){
-				this->head = node;
-				node->prev = NULL;
+				this->head = this->tail;
 			} else{
-				Node * tail = this->head;
-				while(tail->next){
-					tail = tail->next;
-				}
-				tail->next = node;
-				node->prev = tail;
+				this->tail->next = this->head;
 			}
-
 			this->count++;
 		}
 		return node;
-	}
-
-	bool delete_by_value(size_t n){
-
 	}
 
 	bool print(){
 		Node * node = this->head;
-		while(node){
+		for (int i = 0; i < this->size(); ++i){
 			cout << node->value << " ";
 			node = node->next;
 		}
 		cout << endl;
-		return node;
 	}
 
-	bool print_reverse(){ 
-	    Node * tail = this->head;
-		while(tail->next){
-			tail = tail->next;
-		}
-	 	
-	 	cout << "Reverse : ";
-	    while (tail){ 
-	        cout << tail->value << " "; 
-	        tail = tail->prev;
-	    }
-	    cout << endl;
-		return node;
-	} 
-	 
 	size_t size(){
 		return this->count;
 	}
 
+
 private:
 	size_t count;
 	Node * head;
+	Node * tail;
 };
 
 
@@ -93,23 +78,23 @@ bool print_node(Node * node){
 
 int main(int argc, char const *argv[]){
 	List * list = new List();
-	list->insert_last(-1);
 	for (int i = 0; i < 10; ++i){
-		list->insert_first(i);
+		list->insert_head(i);
 	}
 
-	list->insert_last(69);
+	list->insert_tail(69);
+
 
 
 	cout << "=======================" << endl;
 	cout << "Size : " << list->size() << endl;
 	list->print();
-	list->print_reverse();
 
 	// cout << "=======================" << endl;
 	// list->insert(123, 5);
 	// cout << "Size : " << list->size() << endl;
 	// list->print();
+
 
 	// cout << "=======================" << endl;
 	// list->replace(456, 5);
