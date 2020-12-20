@@ -185,7 +185,8 @@ int main(int argc, char const *argv[]){
 
 	cout << "=======================" << endl;
 	int value;
-	cout << "Value : " << list->read(value) <<endl;
+	list->read(value);
+	cout << "Value : " << value << endl;
 	cout << "Size : " << list->size() << endl;
 	list->print();
 

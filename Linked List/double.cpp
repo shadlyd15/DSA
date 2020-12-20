@@ -62,6 +62,20 @@ public:
 		return !node;
 	}
 
+	bool read(int &value){
+		bool ret_val = false;
+		Node * node = this->head;
+		if(node){
+			value = node->value;
+			this->head = head->next;
+			this->head->prev = NULL;
+			ret_val = true;
+			delete node;
+			this->count--;
+		}
+		return ret_val;
+	}
+
 	bool reverse(){
 		Node * node = this->head;
 		if(this->head){
@@ -135,40 +149,30 @@ int main(int argc, char const *argv[]){
 	list->insert_last(69);
 
 
-	cout << "=======================" << endl;
+	cout << "============ List ===========" << endl;
 	cout << "Size : " << list->size() << endl;
 	list->print();
 	list->print_reverse();
 
-	cout << "=======================" << endl;
+	cout << "============ Reverse ===========" << endl;
 	list->reverse();
 	cout << "Size : " << list->size() << endl;
 	list->print();
-	// list->print_reverse();
 
-	// cout << "=======================" << endl;
-	// list->replace(456, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
 
-	// cout << "=======================" << endl;
-	// list->remove(5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "============ Delete ===========" << endl;
+	list->delete_by_value(5);
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
-	// cout << "=======================" << endl;
-	// int value;
-	// cout << "Value : " << list->read(value) <<endl;
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "============= Value ==========" << endl;
+	int value;
+	list->read(value);
+	cout << "Value : " << value << endl;
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
-	// cout << "=======================" << endl;
-	// list->reverse();
-	// cout << "Size : " << list->size() << endl;
-	// list->print();	
-	// list->head_prev();
-
-	cout << "=======================" << endl;
+	cout << "=========== Clear ============" << endl;
 	list->clear();
 	cout << "Size : " << list->size() << endl;
 	list->print();
