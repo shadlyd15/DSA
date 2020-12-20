@@ -14,6 +14,7 @@ public:
 	bool insert_first(int value){
 		Node * node = new Node;
 		if(node){
+			node->prev = NULL;
 			node->value = value;
 			node->next = this->head;
 			if(this->head){
@@ -48,8 +49,31 @@ public:
 		return node;
 	}
 
-	bool delete_by_value(size_t n){
+	bool delete_by_value(int value){
+		Node * node = this->head;
+		while(node->value != value){
+			node = node->next;
+		}
 
+		node->next->prev = node->prev;
+		node->prev->next = node->next;
+		this->count--;
+		delete node;
+		return !node;
+	}
+
+	bool reverse(){
+
+	}
+	
+	bool clear(){
+		Node * node = this->head;
+		while(node){
+			this->head = node->next;
+			delete node;
+			node = this->head;
+			this->count--;
+		}
 	}
 
 	bool print(){
@@ -74,7 +98,7 @@ public:
 	        tail = tail->prev;
 	    }
 	    cout << endl;
-		return node;
+		return tail;
 	} 
 	 
 	size_t size(){
@@ -106,10 +130,11 @@ int main(int argc, char const *argv[]){
 	list->print();
 	list->print_reverse();
 
-	// cout << "=======================" << endl;
-	// list->insert(123, 5);
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "=======================" << endl;
+	list->delete_by_value(3);
+	cout << "Size : " << list->size() << endl;
+	list->print();
+	list->print_reverse();
 
 	// cout << "=======================" << endl;
 	// list->replace(456, 5);
@@ -133,10 +158,10 @@ int main(int argc, char const *argv[]){
 	// list->print();	
 	// list->head_prev();
 
-	// cout << "=======================" << endl;
-	// list->destroy();
-	// cout << "Size : " << list->size() << endl;
-	// list->print();
+	cout << "=======================" << endl;
+	list->clear();
+	cout << "Size : " << list->size() << endl;
+	list->print();
 
 	delete list;
 	return 0;
