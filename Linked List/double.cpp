@@ -63,9 +63,18 @@ public:
 	}
 
 	bool reverse(){
-
+		Node * node = this->head;
+		if(this->head){
+			while(node->prev){
+				node->prev = node->next;
+				node->next = node->prev;
+				node = node->prev;
+			}
+			this->head = node;
+		}
+		return node;
 	}
-	
+
 	bool clear(){
 		Node * node = this->head;
 		while(node){
@@ -117,6 +126,7 @@ bool print_node(Node * node){
 
 int main(int argc, char const *argv[]){
 	List * list = new List();
+	list->reverse();
 	list->insert_last(-1);
 	for (int i = 0; i < 10; ++i){
 		list->insert_first(i);
@@ -131,10 +141,10 @@ int main(int argc, char const *argv[]){
 	list->print_reverse();
 
 	cout << "=======================" << endl;
-	list->delete_by_value(3);
+	list->reverse();
 	cout << "Size : " << list->size() << endl;
 	list->print();
-	list->print_reverse();
+	// list->print_reverse();
 
 	// cout << "=======================" << endl;
 	// list->replace(456, 5);
